@@ -1,0 +1,24 @@
+{
+  "name": "addon-price-spy",
+  "type": "wordpress-plugin",
+  "authors": [
+    {
+      "name": "premmerce"
+    }
+  ],
+  "repositories": [
+    {
+      "type": "git",
+      "url": "https://github.com/Premmerce/wordpress-sdk.git"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Addon\\PriceSpy\\": "src"
+    }
+  },
+  "require": {
+    "premmerce/wordpress-sdk": "dev-sdk"
+  }
+
+}
