@@ -12,7 +12,7 @@
     }
   },
   "require": {
-    "premmerce/wordpress-sdk": "dev-sdk"
+    "premmerce/wordpress-sdk": "^1.1"
   }
 
 }
