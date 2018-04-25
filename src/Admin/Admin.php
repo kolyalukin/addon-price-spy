@@ -84,11 +84,15 @@ class Admin {
 
 		    $data = json_decode( $spy->data );
 
-		    if( abs( $spy->old_price - $product->get_price() ) >= ( ($spy->old_price / 100) * $data->percent ) ){
+		    if( ( $spy->old_price - $product->get_price() ) >= ( ($spy->old_price / 100) * $data->percent ) ){
 		        return true;
+		    } else {
+
+		    	return false;
 		    }
 		}
-		return false;
+		
+		return true;
 	}
 
 	/**
@@ -99,7 +103,7 @@ class Admin {
 	*/
 	public function addPercentColumn( $list ){
 
-		$column['percent'] = __( 'Percent', 'addon-price-spy' );
+		$column['percent'] = __( 'Spying for decrease by', 'addon-price-spy' );
 
 		return $list + $column;
 	}

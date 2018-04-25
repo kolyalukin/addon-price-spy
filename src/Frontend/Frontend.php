@@ -36,6 +36,9 @@ class Frontend {
 
 		add_action( 'premmerce_price_spy_form_title', [ $this, 'titleFilter' ] );
 		add_action( 'premmerce_price_spy_loggin_form_title', [ $this, 'titleFilter' ] );
+
+		add_action( 'premmerce_price_spy_frontend_tableheader', [ $this, 'renderColName' ] );
+		add_action( 'premmerce_price_spy_frontend_tablebody', [ $this, 'renderColValue' ] );
 	}
 
 	/**
@@ -56,4 +59,30 @@ class Frontend {
 		$this->fileManager->includeTemplate('frontend/modal-title.php');
 	}
 
+	/**
+	*
+	* Render title of percent column
+	* @return string
+	*/
+	public function renderColName(){
+		echo '<th>' . __( 'Spying for decrease by', 'addon-price-spy' ) . '</th>';
+	}
+
+	/**
+	*
+	* Render value of percent column
+	* @param object $item
+	* @return string
+	*/
+	public function renderColValue( $item ){
+		
+		$value = '';
+
+		if( !empty( $item->data ) ){
+			$data = json_decode( $item->data );
+			$value = empty( $data->percent ) ? '' : $data->percent . ' %';
+		}
+
+		echo '<td>' . $value . '</td>';
+	}
 }
