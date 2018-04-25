@@ -4,11 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a4ef73d22525f097b993aa6a4f0cb471",
+    "content-hash": "316a81b3bd4e022d46c88a3d94ba504b",
     "packages": [
         {
             "name": "premmerce/wordpress-sdk",
-            "version": "dev-sdk",
+            "version": "v1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Premmerce/wordpress-sdk.git",
@@ -43,9 +43,7 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "premmerce/wordpress-sdk": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
