@@ -27,6 +27,10 @@ class Admin {
 		$this->hooks();
 	}
 
+	/**
+	*
+	* Register hooks
+	*/
 	public function hooks(){
 
 		add_action( 'wp_ajax_add_price_spy', [ $this, 'handleData' ] );
@@ -39,6 +43,13 @@ class Admin {
 	
 	}
 
+	/**
+	*
+	* Data handler, call when price spy form has been submited.
+	* Adds filter to form_data to get percent information and return it in JSON
+	* @param array $form_data
+	* @return string $data
+	*/
 	public function handleData( $form_data ){
 		
 		add_filter('premmerce_price_spy_form_data', function( $form_data ) {
@@ -57,8 +68,16 @@ class Admin {
 		});
 	}
 
+	/**
+	*
+	* Condition to email send. In this case check if price changed more than on data.percent
+	* @param bool $send
+	* @param object $spy
+	* @return object $product
+	*/
 	public function percentCondition( $send, $spy, $product ){
 
+		// if prev condition was false than all conditions must be false
 		if ( $send === false ) return;
 
 		if( $spy->data != null && isset( json_decode( $spy->data )->percent ) ){
@@ -72,6 +91,12 @@ class Admin {
 		return false;
 	}
 
+	/**
+	*
+	* Add percent column to price spy table at admin page
+	* @param array $list
+	* @return array $list
+	*/
 	public function addPercentColumn( $list ){
 
 		$column['percent'] = __( 'Percent', 'addon-price-spy' );
@@ -79,6 +104,12 @@ class Admin {
 		return $list + $column;
 	}
 
+	/**
+	*
+	* Render percent column.
+	* @param object $item
+	* @param string $columnName
+	*/
 	public function renderPercent( $item, $columnName ){
 
 		if( $columnName == 'percent' ){

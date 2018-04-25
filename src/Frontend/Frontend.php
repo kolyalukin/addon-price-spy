@@ -15,12 +15,21 @@ class Frontend {
 	 */
 	private $fileManager;
 
+	/**
+	*
+	* Frontend constructor. Call main mathods
+	* @param FileManager $fileManager
+	*/
 	public function __construct( FileManager $fileManager ) {
 		$this->fileManager = $fileManager;
 
 		$this->hooks();
 	}
 
+	/**
+	*
+	* Register hooks
+	*/
 	public function hooks(){
 		add_action( 'premmerce_price_spy_before_form_inputs', [ $this, 'addInputs' ] );
 		add_action( 'premmerce_price_spy_loggin_before_form_inputs', [ $this, 'addInputs' ] );
@@ -29,15 +38,22 @@ class Frontend {
 		add_action( 'premmerce_price_spy_loggin_form_title', [ $this, 'titleFilter' ] );
 	}
 
+	/**
+	*
+	* Add inputs to modal price spy box
+	* @return string
+	*/
 	public function addInputs(){
-		?>
-			<label for="percent">Percent change: </label>
-			<input type="text" name="data[percent]" placeholder="optional" id="percent"></br>
-		<?php
+		$this->fileManager->includeTemplate('frontend/modal-inputs.php');
 	}
 
+	/**
+	*
+	* Return new title of modal price spy box
+	* @return string
+	*/
 	public function titleFilter(){
-		return '<h3>' . __( 'Fill form', 'addon-price-spy' ) . '</h3>';
+		$this->fileManager->includeTemplate('frontend/modal-title.php');
 	}
 
 }
