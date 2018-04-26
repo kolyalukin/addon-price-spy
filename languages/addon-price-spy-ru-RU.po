@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-04-25 17:12+0300\n"
-"PO-Revision-Date: 2018-04-25 17:12+0300\n"
+"POT-Creation-Date: 2018-04-26 16:39+0300\n"
+"PO-Revision-Date: 2018-04-26 16:39+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -16,14 +16,104 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: src/Admin/Admin.php:106 src/Frontend/Frontend.php:68
+#: src/Admin/Admin.php:85
+msgid "Customer"
+msgstr "Покупатель"
+
+#: src/Admin/Admin.php:128 src/Frontend/Frontend.php:68
 msgid "Spying for decrease by"
 msgstr "Следить за снижением на"
+
+#: src/Email/WC_PremmerceAddonPriceSpyEmail.php:49
+msgid "Percent addon price spy"
+msgstr "Расширения слежений за ценой"
+
+#: src/Email/WC_PremmerceAddonPriceSpyEmail.php:50
+msgid "Emails send when a customer starts spy product price"
+msgstr ""
+"Уведомления отсылается, когда покупатель начинает следить за ценой товара"
+
+#: src/Email/WC_PremmerceAddonPriceSpyEmail.php:53
+#: src/Email/WC_PremmerceAddonPriceSpyEmail.php:54
+msgid "User has started spying product price"
+msgstr "Покупатель начал следить за ценой товара"
+
+#: src/Email/WC_PremmerceAddonPriceSpyEmail.php:105
+msgid "Enable/Disable"
+msgstr "Включить\\Выключить"
+
+#: src/Email/WC_PremmerceAddonPriceSpyEmail.php:107
+msgid "Enable this email notification"
+msgstr "Включить это уведомления"
+
+#: src/Email/WC_PremmerceAddonPriceSpyEmail.php:111
+msgid "Subject"
+msgstr "Тема"
+
+#: src/Email/WC_PremmerceAddonPriceSpyEmail.php:114
+#, php-format
+msgid "Available placeholders: %s"
+msgstr "Доступны шорткоды: %s"
+
+#: src/Email/WC_PremmerceAddonPriceSpyEmail.php:117
+msgid "Email Heading"
+msgstr "Заголовок"
+
+#: src/Email/WC_PremmerceAddonPriceSpyEmail.php:122
+msgid "Available %site_title%"
+msgstr "Доступно %site_title%"
+
+#: src/Email/WC_PremmerceAddonPriceSpyEmail.php:125
+msgid "Email type"
+msgstr "Тип"
+
+#: src/Email/WC_PremmerceAddonPriceSpyEmail.php:127
+msgid "Choose which format of email to send."
+msgstr "Выберите в каком формате отправлять уведомления"
+
+#: src/Email/WC_PremmerceAddonPriceSpyEmail.php:131
+msgid "Plain text"
+msgstr "Текст"
+
+#: src/Email/WC_PremmerceAddonPriceSpyEmail.php:132
+msgid "HTML"
+msgstr ""
+
+#: src/Email/WC_PremmerceAddonPriceSpyEmail.php:136
+msgid "Recipient"
+msgstr "Получатель"
+
+#: src/Email/WC_PremmerceAddonPriceSpyEmail.php:138
+msgid "Enter recipient for this notification about new price spy."
+msgstr "Получатель для этих уведомлений о новом слежении"
 
 #: src/PriceSpyPlugin.php:65
 #, php-format
 msgid "The %s plugin requires %s plugin to be active!"
 msgstr "Для работы плагина %s  нужно чтобы %s был включен!"
+
+#: views/email/addon_price_spy.php:15 views/email/addon_price_spy_plain.php:16
+msgid "User started spying product price"
+msgstr "Покупатель начал следить за ценой товара"
+
+#: views/email/addon_price_spy.php:20 views/email/addon_price_spy_plain.php:20
+#, php-format
+msgid "%s - spying for decrease by %d "
+msgstr "%s - слежения за снижением цены на %d "
+
+#: views/email/addon_price_spy.php:22 views/email/addon_price_spy_plain.php:22
+#, php-format
+msgid "%s - spying for change price"
+msgstr "%s - слежения за изменением цены"
+
+#: views/email/addon_price_spy.php:25 views/email/addon_price_spy_plain.php:24
+#: views/frontend/modal-inputs.php:9 views/frontend/modal-inputs.php:10
+msgid "Name"
+msgstr "Имя"
+
+#: views/email/addon_price_spy.php:26 views/email/addon_price_spy_plain.php:25
+msgid "Email"
+msgstr "Почта"
 
 #: views/frontend/modal-inputs.php:4
 msgid "(Optional)"

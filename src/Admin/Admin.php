@@ -1,6 +1,7 @@
 <?php namespace Addon\PriceSpy\Admin;
 
 use Premmerce\SDK\V1\FileManager\FileManager;
+use Addon\PriceSpy\Email\WC_PremmerceAddonPriceSpyEmail;
 
 /**
  * Class Admin
@@ -39,7 +40,12 @@ class Admin {
 		add_filter( 'premmerce_price_spy_custom_email_condition', [ $this, 'percentCondition' ] , 1, 3);
 		add_filter( 'premmerce_price_spy_column_list', [ $this, 'addPercentColumn' ] );
 
-		add_action( 'premmerce_price_spy_render_columns', [ $this, 'renderPercent' ], 1, 2 );
+		add_action( 'premmerce_price_spy_render_columns', [ $this, 'renderPercentColumn' ], 1, 2 );
+
+		add_filter( 'woocommerce_email_classes', [ $this, 'addEmailClass' ] );
+
+		add_action( 'premmerce_price_spy_loggin_price_spy_added', [ $this, 'notify' ],1, 4 );
+		add_action( 'premmerce_price_spy_price_spy_added', [ $this, 'notify' ], 1, 4 );
 	
 	}
 
@@ -47,7 +53,9 @@ class Admin {
 	*
 	* Data handler, call when price spy form has been submited.
 	* Adds filter to form_data to get percent information and return it in JSON
+	*
 	* @param array $form_data
+	*
 	* @return string $data
 	*/
 	public function handleData( $form_data ){
@@ -60,7 +68,21 @@ class Admin {
 				$data['percent'] = (int) $form_data['percent'];
 				
 				if( $data['percent'] > 99 || $data['percent'] < 1 ){
-					return null;
+					$data['percent'] = 0;
+				}
+			}else{
+				$data['percent'] = 0;
+			}
+
+			if( is_user_logged_in() ){
+				$current_user = wp_get_current_user();
+				$data['name'] = $current_user->user_firstname;
+			}else{
+
+				if( isset( $form_data['name'] ) && !empty( $form_data['name'] ) ){
+					$data['name'] = substr( wp_strip_all_tags( $form_data['name'] ), 0, 20 );
+				}else{
+					$data['name'] = __( 'Customer', 'addon-price-spy' );
 				}
 			}
 
@@ -79,10 +101,10 @@ class Admin {
 
 		// if prev condition was false than all conditions must be false
 		if ( $send === false ) return;
+		
+		$data = json_decode( $spy->data );
 
-		if( $spy->data != null && isset( json_decode( $spy->data )->percent ) ){
-
-		    $data = json_decode( $spy->data );
+		if( !is_null($data) && isset( $data->percent ) && $data->percent != 0 ){
 
 		    if( ( $spy->old_price - $product->get_price() ) >= ( ($spy->old_price / 100) * $data->percent ) ){
 		        return true;
@@ -114,15 +136,48 @@ class Admin {
 	* @param object $item
 	* @param string $columnName
 	*/
-	public function renderPercent( $item, $columnName ){
+	public function renderPercentColumn( $item, $columnName ){
 
 		if( $columnName == 'percent' ){
 
 			$data = json_decode( $item->data );
 
-			if( isset($data->percent) ) echo $data->percent . "%";
+			if( isset( $data->percent ) && $data->percent != 0 ) echo $data->percent . "%";
 		}
 
+	}
+	/**
+	 * 
+	 * Add WC_PremmerceAddonPriceSpyEmail class to woocommerce email classes
+	 * @param array $email_classes
+	 */
+	public function addEmailClass( $email_classes ) {
+		
+		$email_classes['WC_PremmerceAddonPriceSpyEmail'] = new WC_PremmerceAddonPriceSpyEmail( $this->fileManager );
+
+		return $email_classes;
+	}
+
+	/**
+	 * 
+	 * Send email when someone starts spy product price
+	 *
+	 * @param object $product
+	 * @param mixed $info
+	 * @param int $variation_id
+	 * @param string $data
+	 */
+	public function notify( $product, $info, $variation_id, $data ){
+
+		$data 		= json_decode($data);
+		$user_email = is_string( $info ) ? $info : $info->user_email;
+		$user_name 	= is_string( $info ) ? $data->name : $info->user_firstname;
+
+		WC()->mailer();
+
+		$email = new WC_PremmerceAddonPriceSpyEmail( $this->fileManager );
+
+		$email->trigger( $user_email, $user_name, $product, $data );
 	}
 
 }

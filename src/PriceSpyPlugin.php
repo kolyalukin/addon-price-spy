@@ -118,13 +118,13 @@ class PriceSpyPlugin {
 	 * Fired when the plugin is deactivated
 	 */
 	public function deactivate() {
-		// TODO: Implement deactivate() method.
+
 	}
 
 	/**
 	 * Fired during plugin uninstall
 	 */
 	public static function uninstall() {
-		// TODO: Implement uninstall() method.
+
 	}
 }

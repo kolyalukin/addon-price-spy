@@ -37,8 +37,8 @@ class Frontend {
 		add_action( 'premmerce_price_spy_form_title', [ $this, 'titleFilter' ] );
 		add_action( 'premmerce_price_spy_loggin_form_title', [ $this, 'titleFilter' ] );
 
-		add_action( 'premmerce_price_spy_frontend_tableheader', [ $this, 'renderColName' ] );
-		add_action( 'premmerce_price_spy_frontend_tablebody', [ $this, 'renderColValue' ] );
+		add_action( 'premmerce_price_spy_frontend_tableheader', [ $this, 'addPercentColumn' ] );
+		add_action( 'premmerce_price_spy_frontend_tablebody', [ $this, 'renderPercentColumn' ] );
 	}
 
 	/**
@@ -64,7 +64,7 @@ class Frontend {
 	* Render title of percent column
 	* @return string
 	*/
-	public function renderColName(){
+	public function addPercentColumn(){
 		echo '<th>' . __( 'Spying for decrease by', 'addon-price-spy' ) . '</th>';
 	}
 
@@ -74,7 +74,7 @@ class Frontend {
 	* @param object $item
 	* @return string
 	*/
-	public function renderColValue( $item ){
+	public function renderPercentColumn( $item ){
 		
 		$value = '';
 
