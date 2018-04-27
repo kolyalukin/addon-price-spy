@@ -62,7 +62,7 @@ class Frontend {
 	* Render title of percent column
 	*/
 	public function addPercentColumn(){
-		echo '<th>' . __( 'Spying for decrease by', 'addon-price-spy' ) . '</th>';
+        $this->fileManager->includeTemplate('frontend/table-column.php');
 	}
 
 	/**
@@ -74,11 +74,11 @@ class Frontend {
 		
 		$value = '';
 
-		if( !empty( $item->data ) ){
+		if( ! empty( $item->data ) ){
 			$data = json_decode( $item->data );
 			$value = empty( $data->percent ) ? '' : $data->percent . ' %';
 		}
 
-		echo '<td>' . $value . '</td>';
+        $this->fileManager->includeTemplate( 'frontend/table-value.php', [ 'value' => $value ] );
 	}
 }
