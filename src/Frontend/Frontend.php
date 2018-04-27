@@ -44,7 +44,6 @@ class Frontend {
 	/**
 	*
 	* Add inputs to modal price spy box
-	* @return string
 	*/
 	public function addInputs(){
 		$this->fileManager->includeTemplate('frontend/modal-inputs.php');
@@ -53,7 +52,6 @@ class Frontend {
 	/**
 	*
 	* Return new title of modal price spy box
-	* @return string
 	*/
 	public function titleFilter(){
 		$this->fileManager->includeTemplate('frontend/modal-title.php');
@@ -62,7 +60,6 @@ class Frontend {
 	/**
 	*
 	* Render title of percent column
-	* @return string
 	*/
 	public function addPercentColumn(){
 		echo '<th>' . __( 'Spying for decrease by', 'addon-price-spy' ) . '</th>';
@@ -72,7 +69,6 @@ class Frontend {
 	*
 	* Render value of percent column
 	* @param object $item
-	* @return string
 	*/
 	public function renderPercentColumn( $item ){
 		

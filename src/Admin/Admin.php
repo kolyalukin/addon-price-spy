@@ -56,7 +56,6 @@ class Admin {
 	*
 	* @param array $form_data
 	*
-	* @return string $data
 	*/
 	public function handleData( $form_data ){
 		
@@ -86,21 +85,23 @@ class Admin {
 				}
 			}
 
-			return ! empty($data) ? json_encode( $data ) : null;
+			return json_encode( $data );
 		});
 	}
 
 	/**
 	*
 	* Condition to email send. In this case check if price changed more than on data.percent
+	*
 	* @param bool $send
 	* @param object $spy
-	* @return object $product
+    * @param object $product
+	* @return bool $result
 	*/
 	public function percentCondition( $send, $spy, $product ){
 
 		// if prev condition was false than all conditions must be false
-		if ( $send === false ) return;
+		if ( $send === false ) return false;
 		
 		$data = json_decode( $spy->data );
 
@@ -149,7 +150,9 @@ class Admin {
 	/**
 	 * 
 	 * Add WC_PremmerceAddonPriceSpyEmail class to woocommerce email classes
+	 *
 	 * @param array $email_classes
+     * @return array $email_classes
 	 */
 	public function addEmailClass( $email_classes ) {
 		
@@ -162,7 +165,7 @@ class Admin {
 	 * 
 	 * Send email when someone starts spy product price
 	 *
-	 * @param object $product
+	 * @param \WC_Product $product
 	 * @param mixed $info
 	 * @param int $variation_id
 	 * @param string $data

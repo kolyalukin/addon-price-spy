@@ -4,7 +4,7 @@ use Addon\PriceSpy\PriceSpyPlugin;
 
 /**
  *
- * Plugin Name:       addon-price-spy
+ * Plugin Name:       Addon price spy
  * Plugin URI:        https://premmerce.com
  * Description:       
  * Version:           1.0

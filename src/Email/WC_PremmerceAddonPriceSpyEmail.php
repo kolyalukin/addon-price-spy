@@ -1,5 +1,6 @@
 <?php namespace Addon\PriceSpy\Email;
 
+use Premmerce\SDK\V1\FileManager\FileManager;
 use WC_Email;
 
 if( ! class_exists('WC_Email') ){
@@ -9,27 +10,27 @@ if( ! class_exists('WC_Email') ){
 class WC_PremmerceAddonPriceSpyEmail extends WC_Email {
 
 	/**
-	* @var fileManager 
+	* @var FileManager $fileManager
 	*/
 	private $fileManager;
 
     /**
-    * @var userEmail 
+    * @var string userEmail
     */
     private $userEmail;
 
     /**
-    * @var userName 
+    * @var string userName
     */
     private $userName;
 
     /**
-    * @var product 
+    * @var \WC_Product product
     */
     private $product;
 	
     /**
-    * @var data 
+    * @var string formData
     */
     private $formData;
     
@@ -146,7 +147,10 @@ class WC_PremmerceAddonPriceSpyEmail extends WC_Email {
     /**
      * Call when price changed
      *
-     * @param $spy
+     * @param string $userEmail
+     * @param string $userName
+     * @param \WC_Product $product
+     * @param mixed $formData
      */
     public function trigger( $userEmail, $userName, $product, $formData ){
 
@@ -168,8 +172,6 @@ class WC_PremmerceAddonPriceSpyEmail extends WC_Email {
      *
      */
     public function replaceShortCodes(){
-
-        $this->find[] = '{site_title}';
-        $this->replace[] = get_bloginfo('name');
+        $this->placeholders[ '{site_title}' ] = get_bloginfo('name');
     }
 }

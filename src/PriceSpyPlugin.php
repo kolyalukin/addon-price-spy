@@ -13,9 +13,14 @@ use Addon\PriceSpy\Frontend\Frontend;
 class PriceSpyPlugin {
 
 	/**
-	 * @var FileManager
+	 * @var FileManager $fileManager
 	 */
 	private $fileManager;
+
+    /**
+     * @var AdminNotifier $notifier
+     */
+    private $notifier;
 
 	/**
 	 * PriceSpyPlugin constructor.
@@ -67,9 +72,9 @@ class PriceSpyPlugin {
         $plugins = $this->validateRequiredPlugins();
 
         if( count( $plugins ) ){
-            foreach($plugins as $plugin){
-                $error = sprintf($message, 'Premmerce Price Spy addon', $plugin);
-                $this->notifier->push($error, AdminNotifier::ERROR, false);
+            foreach( $plugins as $plugin ){
+                $error = sprintf( $message, 'Premmerce Price Spy addon', $plugin );
+                $this->notifier->push( $error, AdminNotifier::ERROR, false );
             }
         }
 
@@ -111,7 +116,7 @@ class PriceSpyPlugin {
 	 * Fired when the plugin is activated
 	 */
 	public function activate() {
-		// TODO: Implement activate() method.
+
 	}
 
 	/**
