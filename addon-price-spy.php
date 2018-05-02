@@ -4,9 +4,9 @@ use Addon\PriceSpy\PriceSpyPlugin;
 
 /**
  *
- * Plugin Name:       Addon price spy
+ * Plugin Name:       Premmerce Price Spy addon
  * Plugin URI:        https://premmerce.com
- * Description:       
+ * Description:       Addon for Premmerce Price Spy plugin which allows customers set percent price change
  * Version:           1.0
  * Author:            premmerce
  * Author URI:        https://premmerce.com
