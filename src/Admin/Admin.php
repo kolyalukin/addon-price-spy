@@ -44,18 +44,15 @@ class Admin {
 
 		add_filter( 'woocommerce_email_classes', [ $this, 'addEmailClass' ] );
 
-		add_action( 'premmerce_price_spy_loggin_price_spy_added', [ $this, 'notify' ],1, 4 );
+		add_action( 'premmerce_price_spy_loggin_price_spy_added', [ $this, 'notify' ], 1, 4 );
 		add_action( 'premmerce_price_spy_price_spy_added', [ $this, 'notify' ], 1, 4 );
-	
 	}
-
 	/**
 	*
 	* Data handler, call when price spy form has been submited.
 	* Adds filter to form_data to get percent information and return it in JSON
 	*
 	* @param array $form_data
-	*
 	*/
 	public function handleData( $form_data ){
 		
@@ -105,12 +102,10 @@ class Admin {
 		
 		$data = json_decode( $spy->data );
 
-		if( !is_null($data) && isset( $data->percent ) && $data->percent != 0 ){
-
-		    if( ( $spy->old_price - $product->get_price() ) >= ( ($spy->old_price / 100) * $data->percent ) ){
+		if( !is_null( $data ) && isset( $data->percent ) && $data->percent != 0 ){
+		    if( ( $spy->old_price - $product->get_price() ) >= ( ( $spy->old_price / 100 ) * $data->percent ) ){
 		        return true;
 		    } else {
-
 		    	return false;
 		    }
 		}
@@ -121,6 +116,7 @@ class Admin {
 	/**
 	*
 	* Add percent column to price spy table at admin page
+    *
 	* @param array $list
 	* @return array $list
 	*/
@@ -134,6 +130,7 @@ class Admin {
 	/**
 	*
 	* Render percent column.
+    *
 	* @param object $item
 	* @param string $columnName
 	*/
