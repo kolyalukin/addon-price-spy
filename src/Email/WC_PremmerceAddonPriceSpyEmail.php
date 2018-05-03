@@ -150,7 +150,7 @@ class WC_PremmerceAddonPriceSpyEmail extends WC_Email {
      * @param string $userEmail
      * @param string $userName
      * @param \WC_Product $product
-     * @param mixed $formData
+     * @param object $formData
      */
     public function trigger( $userEmail, $userName, $product, $formData ){
 

@@ -166,8 +166,11 @@ class Admin {
 	 */
 	public function notify( $product, $info, $variation_id, $data ){
 
+	    //convert array $data to stdObject
+        $data = (object) $data;
+
 		$user_email = is_string( $info ) ? $info : $info->user_email;
-		$user_name 	= is_string( $info ) ? $data[ 'name' ] : $info->user_firstname;
+		$user_name 	= is_string( $info ) ? $data->name : $info->user_firstname;
 
 		WC()->mailer();
 
