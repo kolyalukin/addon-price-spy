@@ -6,7 +6,7 @@
 </p>
 <?php if( ! is_user_logged_in() ): ?>
 	<p class="form-row form-row-wide">
-		<label for="percent"> <?php _e( 'Name', 'addon-price-spy' ) ?>: </label>
-		<input type="text" name="data[name]" placeholder="<?php _e( 'Name', 'addon-price-spy' ) ?>" id="username" class="input-text"><br />
+		<label for="username"> <?php _e( 'Name', 'addon-price-spy' ) ?>: </label>
+		<input type="text" name="data[name]" placeholder="<?php _e( 'Name', 'addon-price-spy' ) ?>" id="username" class="input-text" required><br />
 	</p>
 <?php endif;?>

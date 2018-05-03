@@ -75,7 +75,7 @@ class Frontend {
 		$value = '';
 
 		if( ! empty( $item->data ) ){
-			$data = json_decode( $item->data );
+			$data = $item->data;
 			$value = empty( $data->percent ) ? '' : $data->percent . ' %';
 		}
 

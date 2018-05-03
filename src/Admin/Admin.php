@@ -34,9 +34,6 @@ class Admin {
 	*/
 	public function hooks(){
 
-		add_action( 'wp_ajax_add_price_spy', [ $this, 'handleData' ] );
-		add_action( 'wp_ajax_nopriv_add_price_spy', [ $this, 'handleData' ] );
-
 		add_filter( 'premmerce_price_spy_custom_email_condition', [ $this, 'percentCondition' ] , 1, 3);
 		add_filter( 'premmerce_price_spy_column_list', [ $this, 'addPercentColumn' ] );
 
@@ -47,19 +44,18 @@ class Admin {
 		add_action( 'premmerce_price_spy_loggin_price_spy_added', [ $this, 'notify' ], 1, 4 );
 		add_action( 'premmerce_price_spy_price_spy_added', [ $this, 'notify' ], 1, 4 );
 
+		add_filter( 'premmerce_price_spy_form_data', [ $this, 'handleData' ], 1, 1 );
 	}
 	/**
 	*
-	 * TODO: Move add_filter to hooks
-	* Data handler, call when price spy form has been submited.
-	* Adds filter to form_data to get percent information and return it in JSON
+	* Data handler, call when price spy form has been submitted.
+	* Adds filter to form_data to get percent information;
 	*
 	* @param array $form_data
+    * @return array $form_data
 	*/
 	public function handleData( $form_data ){
-		
-		add_filter('premmerce_price_spy_form_data', function( $form_data ) {
-			
+
 			$data = [];
 
 			if( isset( $form_data['percent'] ) && !empty( $form_data['percent'] ) ){
@@ -84,9 +80,7 @@ class Admin {
 				}
 			}
 
-			//todo: move json_encode to main plugin
-			return json_encode( $data );
-		});
+			return $data;
 	}
 
 	/**
@@ -103,8 +97,7 @@ class Admin {
 		// if prev condition was false than all conditions must be false
 		if ( $send === false ) return false;
 
-		//todo: move to model
-		$data = json_decode( $spy->data );
+		$data = $spy->data;
 
 		if( !is_null( $data ) && isset( $data->percent ) && $data->percent != 0 ){
 		    if( ( $spy->old_price - $product->get_price() ) >= ( ( $spy->old_price / 100 ) * $data->percent ) ){
@@ -142,8 +135,7 @@ class Admin {
 
 		if( $columnName == 'percent' ){
 
-			//todo: move to model
-			$data = json_decode( $item->data );
+			$data = $item->data;
 
 			if( isset( $data->percent ) && $data->percent != 0 ) echo $data->percent . "%";
 		}
@@ -170,13 +162,12 @@ class Admin {
 	 * @param \WC_Product $product
 	 * @param mixed $info
 	 * @param int $variation_id
-	 * @param string $data
+	 * @param array $data
 	 */
 	public function notify( $product, $info, $variation_id, $data ){
 
-		$data 		= json_decode($data);
 		$user_email = is_string( $info ) ? $info : $info->user_email;
-		$user_name 	= is_string( $info ) ? $data->name : $info->user_firstname;
+		$user_name 	= is_string( $info ) ? $data[ 'name' ] : $info->user_firstname;
 
 		WC()->mailer();
 
