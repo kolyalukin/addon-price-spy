@@ -46,9 +46,11 @@ class Admin {
 
 		add_action( 'premmerce_price_spy_loggin_price_spy_added', [ $this, 'notify' ], 1, 4 );
 		add_action( 'premmerce_price_spy_price_spy_added', [ $this, 'notify' ], 1, 4 );
+
 	}
 	/**
 	*
+	 * TODO: Move add_filter to hooks
 	* Data handler, call when price spy form has been submited.
 	* Adds filter to form_data to get percent information and return it in JSON
 	*
@@ -82,6 +84,7 @@ class Admin {
 				}
 			}
 
+			//todo: move json_encode to main plugin
 			return json_encode( $data );
 		});
 	}
@@ -99,7 +102,8 @@ class Admin {
 
 		// if prev condition was false than all conditions must be false
 		if ( $send === false ) return false;
-		
+
+		//todo: move to model
 		$data = json_decode( $spy->data );
 
 		if( !is_null( $data ) && isset( $data->percent ) && $data->percent != 0 ){
@@ -138,6 +142,7 @@ class Admin {
 
 		if( $columnName == 'percent' ){
 
+			//todo: move to model
 			$data = json_decode( $item->data );
 
 			if( isset( $data->percent ) && $data->percent != 0 ) echo $data->percent . "%";
